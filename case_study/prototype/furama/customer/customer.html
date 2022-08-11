@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<h1 align="center">Customer List</h1>
+<div>
+    <button id="add" onclick="create()">Create Customer</button>
+</div>
+<p id="display"></p>
+
+<script>
+    class Customer {
+        get id() {
+            return this._id;
+        }
+
+        set id(value) {
+            this._id = value;
+        }
+
+        get customerTypeId() {
+            return this._customerTypeId;
+        }
+
+        set customerTypeId(value) {
+            this._customerTypeId = value;
+        }
+
+        get name() {
+            return this._name;
+        }
+
+        set name(value) {
+            this._name = value;
+        }
+
+        get birthDay() {
+            return this._birthDay;
+        }
+
+        set birthDay(value) {
+            this._birthDay = value;
+        }
+
+        get gender() {
+            return this._gender;
+        }
+
+        set gender(value) {
+            this._gender = value;
+        }
+
+        get idCard() {
+            return this._idCard;
+        }
+
+        set idCard(value) {
+            this._idCard = value;
+        }
+
+        get phone() {
+            return this._phone;
+        }
+
+        set phone(value) {
+            this._phone = value;
+        }
+
+        get email() {
+            return this._email;
+        }
+
+        set email(value) {
+            this._email = value;
+        }
+
+        get address() {
+            return this._address;
+        }
+
+        set address(value) {
+            this._address = value;
+        }
+
+        constructor(id, customerTypeId, name, birthDay, gender, idCard, phone, email, address) {
+
+            this._id = id;
+            this._customerTypeId = customerTypeId;
+            this._name = name;
+            this._birthDay = birthDay;
+            this._gender = gender;
+            this._idCard = idCard;
+            this._phone = phone;
+            this._email = email;
+            this._address = address;
+        }
+    }
+    let arrCustomer = [new Customer("1","Gold","Đỗ Trọng Hoàng","28/06/1995","Nam","0704478128","dotronghoang@gmail.com","Đà Nẵng")];
+</script>
+</body>
+</html>
