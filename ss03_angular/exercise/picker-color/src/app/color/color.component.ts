@@ -6,8 +6,7 @@ import {Component, OnInit} from '@angular/core';
   styleUrls: ['./color.component.css']
 })
 export class ColorComponent implements OnInit {
-  color = '#b72a2a';
-  color1 = '#b72a2a';
+  color = '#ffffff';
 
   constructor() {
   }
