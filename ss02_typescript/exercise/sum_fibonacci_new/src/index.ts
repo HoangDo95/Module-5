@@ -1,8 +1,6 @@
 // happy coding 👻
-// @ts-ignore
-function fibonacci(num: number) {
+function fibonacci(num: number) : number {
     if (num <= 1) return num;
-
     return fibonacci(num - 1) + fibonacci(num - 2);
 }
 let sum = 0;
