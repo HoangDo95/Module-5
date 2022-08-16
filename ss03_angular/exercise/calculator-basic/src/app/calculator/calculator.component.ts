@@ -6,31 +6,27 @@ import {Component, OnInit} from '@angular/core';
   styleUrls: ['./calculator.component.css']
 })
 export class CalculatorComponent implements OnInit {
-  public num1: number;
-  public num2: number;
-  public num3: number;
 
-  add() {
-    this.num3 = this.num1 + this.num2;
-  }
 
-  sub() {
-    this.num3 = this.num1 - this.num2;
-  }
-
-  multiply() {
-    this.num3 = this.num1 * this.num2;
-  }
-
-  divide() {
-    this.num3 = this.num1 / this.num2;
-  }
-
+  total = '';
 
   constructor() {
   }
 
   ngOnInit(): void {
+  }
+
+  clear() {
+    this.total = '';
+  }
+
+  number(n: string) {
+    this.total += n;
+  }
+
+  result() {
+    // tslint:disable-next-line:no-eval
+    this.total = eval(this.total);
   }
 
 }

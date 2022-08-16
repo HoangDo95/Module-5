@@ -1,14 +1,31 @@
-<div style="text-align: center">
-  <h1>Calculator Basic</h1>
-  <input type="number" name="num1" [(ngModel)]="num1">
-  <input type="number" name="num2" [(ngModel)]="num2">
-  <br>
-  <button (click)="add()">Add (+)</button>
-  <button (click)="sub()">Sub (-)</button>
-  <button (click)="multiply()">Multiply (*)</button>
-  <button (click)="divide()">Divide (/)</button>
-  <h3>Result: {{num3}} </h3>
-</div>
-
-
-
+<table border="1" cellpadding="12" style="text-align: center">
+  <tr>
+    <td colspan="5">
+      <input style="size: auto" type="text" disabled [value]="total">
+    </td>
+  </tr>
+  <tr style="text-align: center">
+    <td><input style="width: 40px;height: 40px" type="button" value="1" (click)="number('1')"></td>
+    <td><input style="width: 40px;height: 40px" type="button" value="2" (click)="number('2')"></td>
+    <td><input style="width: 40px;height: 40px" type="button" value="3" (click)="number('3')"></td>
+    <td><input style="width: 40px;height: 40px" type="button" value="+" (click)="number('+')"></td>
+  </tr>
+  <tr style="text-align: center">
+    <td><input style="width: 40px;height: 40px" type="button" value="4" (click)="number('4')"></td>
+    <td><input style="width: 40px;height: 40px" type="button" value="5" (click)="number('5')"></td>
+    <td><input style="width: 40px;height: 40px" type="button" value="6" (click)="number('6')"></td>
+    <td><input style="width: 40px;height: 40px" type="button" value="-" (click)="number('-')"></td>
+  </tr>
+  <tr style="text-align: center">
+    <td><input type="button" value="7" (click)="number('7')"></td>
+    <td><input type="button" value="8" (click)="number('8')"></td>
+    <td><input type="button" value="9" (click)="number('9')"></td>
+    <td><input type="button" value="*" (click)="number('*')"></td>
+  </tr>
+  <tr style="text-align: center">
+    <td><input type="button" value="C" (click)="clear()"></td>
+    <td><input type="button" value="0" (click)="number('0')"></td>
+    <td><input type="button" value="=" (click)="result()"></td>
+    <td><input type="button" value="/" (click)="number('/')"></td>
+  </tr>
+</table>
