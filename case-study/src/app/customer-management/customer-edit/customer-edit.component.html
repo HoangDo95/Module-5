@@ -1,70 +1,80 @@
-<div style="text-align: center">
-  <h3>Edit Customer</h3>
-</div>
-<p>
-  <a class="btn btn-outline-primary" role="button"
-     href="list.html">Back list</a>
-</p>
 <div class="container">
-  <form method="post" novalidate="novalidate">
-    <div class="mb-3">
-      <input type="hidden" class="form-control">
-    </div>
-    <div class="mb-3">
-      <label class="form-label">Customer type </label>
-      <select class="form-select" >
-        <option>---Choose---</option>
-        <option>Gold</option>
-        <option>Silver</option>
-        <option>Bronze</option>
-      </select>
-    </div>
-    <div class="mb-3">
-      <label class="form-label">Name</label>
-
-      <input type="text" class="form-control">
-    </div>
-    <div class="mb-3">
-      <label class="form-label">Birth day</label>
-
-      <input type="date" class="form-control">
-    </div>
-    <div class="mb-3">
-      <label class="form-label">Gender</label>
-      <div class="form-check">
-        <input type="radio">
-        <label class="form-check-label"> Female</label>
+  <div class="title">Add Customer</div>
+  <div class="content">
+    <form [formGroup]="customerForm" (ngSubmit)="updateCustomer(id)">
+      <div class="user-details">
+<!--        <div class="input-box">-->
+<!--          <span class="details">Id</span>-->
+<!--          <input type="hidden" formControlName="id" placeholder="Enter your id" >-->
+<!--        </div>-->
+        <div class="input-box">
+          <span class="details">Customer Type</span>
+          <select class="form-select" formControlName="customerType">
+            <option [ngValue]="null" disabled>-----Choose-----</option>
+            <option *ngFor="let item of customerTypeList" [ngValue]="item">{{item.name}}</option>
+            <p style="color:red" *ngIf="customerForm.controls.customerType.hasError('required') && customerForm.controls.customerType.touched"> Is not blank</p>
+          </select>
+        </div>
+        <div class="input-box">
+          <span class="details">Name</span>
+          <input type="text" formControlName="name" placeholder="Enter your name" >
+          <p style="color:red" *ngIf="customerForm.controls.name.hasError('required') && customerForm.controls.name.touched"> Is not blank</p>
+          <p style="color:red" *ngIf="customerForm.controls.name.hasError('pattern')"> Name: Nguyen Van A</p>
+        </div>
+        <div class="input-box">
+          <span class="details">Birth Day</span>
+          <input type="date" formControlName="dayOfBirth" required>
+          <p style="color:red" *ngIf="customerForm.controls.dayOfBirth.hasError('required') && customerForm.controls.dayOfBirth.touched"> Is not blank</p>
+        </div>
+        <div class="input-box">
+          <span class="details">Email</span>
+          <input type="text" formControlName="email" placeholder="Enter your email" >
+          <p style="color:red" *ngIf="customerForm.controls.email.hasError('required') && customerForm.controls.email.touched"> Is not blank</p>
+          <p style="color:red" *ngIf="customerForm.controls.email.hasError('email')"> Email: ...@...</p>
+        </div>
+        <div class="input-box">
+          <span class="details">Phone Number</span>
+          <input type="text" formControlName="phone" placeholder="Enter your number" >
+          <p style="color:red" *ngIf="customerForm.controls.phone.hasError('required') && customerForm.controls.phone.touched"> Is not blank</p>
+          <p style="color:red" *ngIf="customerForm.controls.phone.hasError('pattern')"> Phone: 03|05|07|09xxxxxxxx </p>
+        </div>
+        <div class="input-box">
+          <span class="details">Id Card</span>
+          <input type="text" formControlName="idCard" placeholder="Enter your id card" >
+          <p style="color:red" *ngIf="customerForm.controls.idCard.hasError('required') && customerForm.controls.idCard.touched"> Is not blank</p>
+          <p style="color:red" *ngIf="customerForm.controls.idCard.hasError('minlength')"> Id Card: xxxxxxxxx (X is number 0 - 9) </p>
+        </div>
+        <div class="input-box">
+          <span class="details">Address</span>
+          <input type="text" formControlName="address" placeholder="Enter your address" >
+          <p style="color:red" *ngIf="customerForm.controls.address.hasError('required') && customerForm.controls.name.touched"> Is not blank</p>
+        </div>
       </div>
-      <div class="form-check">
-        <input type="radio">
-        <label class="form-check-label"> Male </label>
+      <div class="gender-details" >
+        <input type="radio" formControlName="gender" name="gender" value="Male" id="dot-1">
+        <input type="radio" formControlName="gender" name="gender" value="Female" id="dot-2">
+        <input type="radio" formControlName="gender" name="gender" value="LGBT" id="dot-3">
+        <span class="gender-title">Gender</span>
+        <div class="category" >
+          <label for="dot-1">
+            <span class="dot one"></span>
+            <span class="gender">Male</span>
+          </label>
+          <label for="dot-2">
+            <span class="dot two"></span>
+            <span class="gender">Female</span>
+          </label>
+          <label for="dot-3">
+            <span class="dot three"></span>
+            <span class="gender">LGBT</span>
+          </label>
+        </div>
       </div>
-      <div class="form-check">
-        <input type="radio">
-        <label class="form-check-label">LGBT</label>
+      <div class="button">
+        <input type="submit" value="Save">
       </div>
-    </div>
-    <div class="mb-3">
-      <label class="form-label">Id Card</label>
-
-      <input type="number" class="form-control">
-    </div>
-    <div class="mb-3">
-      <label class="form-label">Phone</label>
-
-      <input type="number"class="form-control">
-    </div>
-    <div class="mb-3">
-      <label class="form-label">Email</label>
-
-      <input type="text" class="form-control">
-    </div>
-    <div class="mb-3">
-      <label class="form-label">Address</label>
-      <input type="text"class="form-control">
-    </div>
-    <input type="submit" value="Save"/>
-  </form>
+    </form>
+  </div>
 </div>
 
 

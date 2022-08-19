@@ -1,1 +1,62 @@
-<p>facility-edit works!</p>
+<div class="container">
+  <div class="title">Add Facility</div>
+  <div class="content">
+    <form [formGroup]="facilityForm" (ngSubmit)="updateFacility(id)">
+      <div class="user-details">
+        <div class="input-box">
+          <span class="details">Facility Type</span>
+          <select class="form-select" formControlName="facilityType">
+            <option >-----Choose-----</option>
+            <option *ngFor="let item of facilityTypeList" [ngValue]="item">{{item.name}}</option>
+          </select>
+        </div>
+        <div class="input-box">
+          <span class="details">Name</span>
+          <input type="text" formControlName="name" placeholder="Enter your name" >
+        </div>
+        <div class="input-box">
+          <span class="details">Cost</span>
+          <input type="number" formControlName="cost" placeholder="Enter your cost" >
+        </div>
+        <div class="input-box">
+          <span class="details">Area</span>
+          <input type="number" formControlName="area" placeholder="Enter your area" required>
+        </div>
+        <div class="input-box">
+          <span class="details">Max People</span>
+          <input type="number" formControlName="maxPeople" placeholder="Enter your max people" >
+        </div>
+        <div class="input-box">
+          <span class="details">Rent Type</span>
+          <select class="form-select" formControlName="rentType">
+            <option >-----Choose-----</option>
+            <option *ngFor="let item of rentTypeList" [ngValue]="item">{{item.name}}</option>
+          </select>
+        </div>
+        <div class="input-box" >
+          <span class="details">Standard Room</span>
+          <input type="text" formControlName="standardRoom" placeholder="Enter your standard room" >
+        </div>
+        <div class="input-box" >
+          <span class="details">Other</span>
+          <input type="text" formControlName="other" placeholder="Enter your other" >
+        </div>
+        <div class="input-box" >
+          <span class="details">Pool</span>
+          <input type="number" formControlName="pool" placeholder="Enter your pool" >
+        </div>
+        <div class="input-box" >
+          <span class="details">Floors</span>
+          <input type="number" formControlName="floor" placeholder="Enter your floors" >
+        </div>
+        <div class="input-box">
+          <span class="details">Free</span>
+          <input type="text" formControlName="free" placeholder="Enter your free" >
+        </div>
+      </div>
+      <div class="button">
+        <input type="submit" value="Save">
+      </div>
+    </form>
+  </div>
+</div>

@@ -29,6 +29,7 @@ a{
 }
 
 .sub-menu .item .title{
+  text-decoration: none;
   color: #fff;
 }
 
