@@ -13,12 +13,12 @@ import {Route, Router, Routes} from '@angular/router';
 export class CustomerCreateComponent implements OnInit {
   customerType: CustomerType[] = this.customerTypeService.getAll();
   customerForm: FormGroup = new FormGroup({
-    id: new FormControl(),
+    id: new FormControl(Math.floor(Math.random() * 100)),
     customerType: new FormControl('', [Validators.required]),
     name: new FormControl('', [Validators.required, Validators.pattern('^([A-Z\\p{L}]{1}[a-z\\p{L}]*)+(\\s([A-Z\\p{L}]{1}[a-z\\p{L}]*))*$')]),
     dayOfBirth: new FormControl('', [Validators.required]),
     gender: new FormControl('', [Validators.required]),
-    idCard: new FormControl('', [Validators.required, Validators.pattern('^[0-9]{9}$')]),
+    idCard: new FormControl('', [Validators.required, Validators.pattern('^\\d{9|12}|\\d{12}$')]),
     phone: new FormControl('', [Validators.required, Validators.pattern('^(0?)(3[2-9]|5[6|8|9]|7[0|6-9]|8[0-6|8|9]|9[0-4|6-9])[0-9]{7}$')]),
     email: new FormControl('', [Validators.required, Validators.email]),
     address: new FormControl('', [Validators.required]),

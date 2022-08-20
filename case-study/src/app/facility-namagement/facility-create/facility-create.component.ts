@@ -5,6 +5,7 @@ import {RentTypeService} from '../service/rent-type.service';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {RentType} from '../../model/rent-type';
 import {FacilityType} from '../../model/facility-type';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-facility-create',
@@ -14,7 +15,7 @@ import {FacilityType} from '../../model/facility-type';
 export class FacilityCreateComponent implements OnInit {
   temp: string;
   facilityForm: FormGroup = new FormGroup({
-    id: new FormControl(),
+    id: new FormControl(Math.floor(Math.random() * 100)),
     name: new FormControl('', [Validators.required]),
     area: new FormControl('', [Validators.required]),
     cost: new FormControl('', [Validators.required]),
@@ -22,16 +23,17 @@ export class FacilityCreateComponent implements OnInit {
     rentType: new FormControl('', [Validators.required]),
     facilityType: new FormControl('', [Validators.required]),
     standardRoom: new FormControl('', [Validators.required]),
-    other: new FormControl(),
-    pool: new FormControl(),
-    floors: new FormControl(),
-    free: new FormControl(),
-    img: new FormControl(),
+    other: new FormControl('', [Validators.required]),
+    pool: new FormControl('', [Validators.required]),
+    floors: new FormControl('', [Validators.required]),
+    free: new FormControl('', [Validators.required]),
+    img: new FormControl('', [Validators.required]),
   });
 
   constructor(private facilityService: FacilityService,
               private facilityTypeService: FacilityTypeService,
-              private rentTypeService: RentTypeService) {
+              private rentTypeService: RentTypeService,
+              private router: Router) {
   }
 
   facilityType: FacilityType[] = this.facilityTypeService.getAll();
@@ -45,10 +47,11 @@ export class FacilityCreateComponent implements OnInit {
     this.facilityService.saveFacility(facility);
     this.facilityForm.reset();
     alert('Create done');
+    this.router.navigate(['/facility-list']);
   }
 
-  changeFacility(even: Event) {
-    this.temp = even.target.value;
+  changeFacility(even: string) {
+    this.temp = even;
     console.log(this.temp);
   }
 }

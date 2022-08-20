@@ -13,7 +13,7 @@ import {Facility} from '../../model/facility';
 })
 export class ContractCreateComponent implements OnInit {
   contractForm: FormGroup = new FormGroup({
-    id: new FormControl(),
+    id: new FormControl(Math.floor(Math.random() * 100)),
     starDay: new FormControl('', [Validators.required]),
     endDay: new FormControl('', [Validators.required]),
     deposit: new FormControl('', [Validators.required, Validators.min(0)]),

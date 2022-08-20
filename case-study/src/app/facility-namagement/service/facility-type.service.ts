@@ -1,5 +1,6 @@
 import {Injectable} from '@angular/core';
 import {FacilityType} from '../../model/facility-type';
+import {element} from 'protractor';
 
 @Injectable({
   providedIn: 'root'
@@ -22,6 +23,12 @@ export class FacilityTypeService {
 
   constructor() {
   }
+
+  findById(name: string) {
+    // tslint:disable-next-line:no-shadowed-variable
+    return this.facilityTypes.find( element => element.name === name);
+  }
+
   getAll() {
     return this.facilityTypes;
   }

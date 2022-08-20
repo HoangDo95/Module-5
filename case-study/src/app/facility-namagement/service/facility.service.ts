@@ -1,5 +1,7 @@
 import {Injectable} from '@angular/core';
 import {Facility} from '../../model/facility';
+import {FacilityTypeService} from './facility-type.service';
+import {FacilityType} from '../../model/facility-type';
 
 @Injectable({
   providedIn: 'root'
@@ -10,7 +12,7 @@ export class FacilityService {
       id: 1,
       name: 'BEACH FRONT VILLAS',
       area: '150',
-      cost: '1000$',
+      cost: '1000',
       maxPeople: '5',
       rentType: {name: 'Day'},
       facilityType: {name: 'Villa'},
@@ -25,7 +27,7 @@ export class FacilityService {
       id: 2,
       name: 'PRESIDENTIAL SUITE',
       area: '100',
-      cost: '300$',
+      cost: '300',
       maxPeople: '3',
       rentType: {name: 'Day'},
       facilityType: {name: 'House'},
@@ -40,7 +42,7 @@ export class FacilityService {
       id: 3,
       name: 'OCEAN SUITE',
       area: '50',
-      cost: '100$',
+      cost: '100',
       maxPeople: '3',
       rentType: {name: 'Day'},
       facilityType: {name: 'Room'},
@@ -55,7 +57,7 @@ export class FacilityService {
       id: 4,
       name: 'OCEAN SUITE',
       area: '50',
-      cost: '100$',
+      cost: '100',
       maxPeople: '3',
       rentType: {name: 'Day'},
       facilityType: {name: 'Room'},
@@ -70,7 +72,7 @@ export class FacilityService {
       id: 5,
       name: 'PRESIDENTIAL SUITE',
       area: '100',
-      cost: '300$',
+      cost: '300',
       maxPeople: '3',
       rentType: {name: 'Day'},
       facilityType: {name: 'House'},
@@ -85,7 +87,7 @@ export class FacilityService {
       id: 6,
       name: 'BEACH FRONT VILLAS',
       area: '150',
-      cost: '1000$',
+      cost: '1000',
       maxPeople: '5',
       rentType: {name: 'Day'},
       facilityType: {name: 'Villa'},
@@ -97,18 +99,26 @@ export class FacilityService {
       img: 'https://furamavietnam.com/wp-content/uploads/2018/03/Vietnam_Danang_Furama_Ocean-Suite-Feature-370x239.jpg'
     },
   ];
+  facilityType: FacilityType[] = this.facilityTypeService.getAll();
 
-  constructor() {
+  constructor(private facilityTypeService: FacilityTypeService) {
   }
 
   getAll() {
     return this.facilityList;
   }
-  saveFacility(customer) {
-    this.facilityList.push(customer);
+
+  saveFacility(facility) {
+    for (let i = 0; i < this.facilityType.length; i++) {
+      if (facility.facilityType === this.facilityType[i].name) {
+        facility.facilityType = this.facilityType[i];
+      }
+    }
+    this.facilityList.push(facility);
   }
+
   findById(id: number) {
-    return this.facilityList.find(customer => customer.id === id);
+    return this.facilityList.find(facility => facility.id === id);
   }
 
   updateFacility(id: number, facility: Facility) {

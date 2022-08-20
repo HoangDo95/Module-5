@@ -5,18 +5,18 @@
       <div class="user-details">
         <div class="input-box">
           <span class="details">Facility Type</span>
-          <select class="form-select" formControlName="facilityType" (change)="changeFacility($event)">
-            <option [ngValue]="null" disabled>-----Choose-----</option>
-            <option *ngFor="let item of facilityType" [value]="item.id">{{item.name}}</option>
+          <select class="form-select" formControlName="facilityType" (change)="changeFacility($event.target.value)">
+            <option value="">-----Choose-----</option>
+            <option *ngFor="let item of facilityType" [value]="item.name">{{item.name}}</option>
           </select>
         </div>
         <div class="input-box">
           <span class="details">Name</span>
-          <input type="text" formControlName="name" placeholder="Enter your name" >
+          <input type="text" formControlName="name" placeholder="Enter your name">
         </div>
         <div class="input-box">
           <span class="details">Cost</span>
-          <input type="number" formControlName="cost" placeholder="Enter your cost" >
+          <input type="number" formControlName="cost" placeholder="Enter your cost">
         </div>
         <div class="input-box">
           <span class="details">Area</span>
@@ -24,34 +24,34 @@
         </div>
         <div class="input-box">
           <span class="details">Max People</span>
-          <input type="number" formControlName="maxPeople" placeholder="Enter your max people" >
+          <input type="number" formControlName="maxPeople" placeholder="Enter your max people">
         </div>
         <div class="input-box">
           <span class="details">Rent Type</span>
           <select class="form-select" formControlName="rentType">
-            <option [ngValue]="null" disabled>-----Choose-----</option>
+            <option value="">-----Choose-----</option>
             <option *ngFor="let item of rentType" [ngValue]="item">{{item.name}}</option>
           </select>
         </div>
-        <div class="input-box" *ngIf="temp == 1 || temp == 2">
+        <div class="input-box" *ngIf="temp == 'Villa' || temp == 'House'">
           <span class="details">Standard Room</span>
-          <input type="text" formControlName="standardRoom" placeholder="Enter your standard room" >
+          <input type="text" formControlName="standardRoom" placeholder="Enter your standard room">
         </div>
-        <div class="input-box" *ngIf="temp == 1 || temp == 2">
+        <div class="input-box" *ngIf="temp == 'Villa' || temp == 'House'">
           <span class="details">Other</span>
-          <input type="text" formControlName="other" placeholder="Enter your other" >
+          <input type="text" formControlName="other" placeholder="Enter your other">
         </div>
-        <div class="input-box" *ngIf="temp == 1 ">
+        <div class="input-box" *ngIf="temp == 'Villa' ">
           <span class="details">Pool</span>
-          <input type="number" formControlName="pool" placeholder="Enter your pool" >
+          <input type="number" formControlName="pool" placeholder="Enter your pool">
         </div>
-        <div class="input-box" *ngIf="temp == 1 || temp == 2">
+        <div class="input-box" *ngIf="temp == 'Villa' || temp == 'House'">
           <span class="details">Floors</span>
-          <input type="number" formControlName="floor" placeholder="Enter your floors" >
+          <input type="number" formControlName="floors" placeholder="Enter your floors">
         </div>
-        <div class="input-box" *ngIf="temp==3">
+        <div class="input-box" *ngIf="temp == 'Room'">
           <span class="details">Free</span>
-          <input type="text" formControlName="free" placeholder="Enter your free" >
+          <input type="text" formControlName="free" placeholder="Enter your free">
         </div>
       </div>
       <div class="button">

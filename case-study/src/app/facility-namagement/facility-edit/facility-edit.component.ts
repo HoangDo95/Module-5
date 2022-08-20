@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {FacilityService} from '../service/facility.service';
 import {FacilityTypeService} from '../service/facility-type.service';
 import {RentTypeService} from '../service/rent-type.service';
@@ -15,6 +15,7 @@ import {RentType} from '../../model/rent-type';
 export class FacilityEditComponent implements OnInit {
   facilityForm: FormGroup;
   id: number;
+  temp: string;
 
   facilityTypeList: FacilityType [] = this.facilityTypeService.getAll();
   rentTypeList: RentType [] = this.rentTypeService.getAll();
@@ -27,6 +28,7 @@ export class FacilityEditComponent implements OnInit {
     this.activatedRoute.paramMap.subscribe((paramMap: ParamMap) => {
       this.id = +paramMap.get('id');
       const facility = this.findById(this.id);
+      console.log(facility);
       this.facilityForm = new FormGroup({
         id: new FormControl(facility.id),
         name: new FormControl(facility.name, [Validators.required]),
@@ -44,6 +46,7 @@ export class FacilityEditComponent implements OnInit {
       });
     });
   }
+
   ngOnInit(): void {
   }
 
@@ -51,11 +54,15 @@ export class FacilityEditComponent implements OnInit {
     return this.facilityService.findById(id);
   }
 
-  // @ts-ignore
   updateFacility(id: number) {
     const facility = this.facilityForm.value;
     this.facilityService.updateFacility(id, facility);
     alert('Edit done');
     this.router.navigate(['/facility-list']);
+  }
+
+  changeFacility(even: string) {
+    this.temp = even;
+    console.log(this.temp);
   }
 }

@@ -10,7 +10,7 @@
         <div class="input-box">
           <span class="details">Customer Type</span>
           <select class="form-select" formControlName="customerType">
-            <option [ngValue]="null" disabled>-----Choose-----</option>
+            <option value="" >-----Choose-----</option>
             <option *ngFor="let item of customerTypeList" [ngValue]="item">{{item.name}}</option>
             <p style="color:red" *ngIf="customerForm.controls.customerType.hasError('required') && customerForm.controls.customerType.touched"> Is not blank</p>
           </select>
