@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {DictionaryService} from "../dictionary.service";
+import {DictionaryService} from "../service/dictionary.service";
 import {IWord} from "../i-word";
 
 @Component({

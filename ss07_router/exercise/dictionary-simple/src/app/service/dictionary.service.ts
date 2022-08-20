@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {IWord} from "./i-word";
+import {IWord} from '../i-word';
 
 @Injectable({
   providedIn: 'root'
@@ -9,17 +9,25 @@ export class DictionaryService {
 
   constructor() {
     this.wordList.push({
-      word: 'hello',
-      mean: 'xin chào'
-    })
+      word: 'hi',
+      mean: 'chào'
+    });
     this.wordList.push({
-      word: 'good bye',
-      mean: 'đi luôn'
-    })
+      word: 'book',
+      mean: 'sách'
+    });
     this.wordList.push({
-      word: 'dog',
-      mean: 'mèo'
-    })
+      word: 'class',
+      mean: 'lớp học'
+    });
+    this.wordList.push({
+      word: 'one',
+      mean: 'số một'
+    });
+    this.wordList.push({
+      word: 'monday',
+      mean: 'thứ hai'
+    });
   }
 
   public getAll() {
@@ -28,7 +36,7 @@ export class DictionaryService {
 
   findByWord(word: string) {
     for (const w of this.wordList) {
-      if (w.word == word) {
+      if (w.word === word) {
         return w;
       }
     }
