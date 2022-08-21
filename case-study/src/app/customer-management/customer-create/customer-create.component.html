@@ -71,7 +71,7 @@
         </div>
       </div>
       <div class="button">
-        <input type="submit" value="Save">
+        <input type="submit" [disabled]="!customerForm.valid" value="Save">
       </div>
     </form>
   </div>

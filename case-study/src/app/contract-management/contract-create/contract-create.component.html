@@ -39,11 +39,11 @@
           <span class="details">Total</span>
           <input type="number" formControlName="total" placeholder="Enter your total" >
           <p style="color:red" *ngIf="contractForm.controls.total.hasError('required') && contractForm.controls.total.touched"> Is not blank</p>
-          <p style="color:red" *ngIf="contractForm.controls.deposit.hasError('min')"> Total > 0</p>
+          <p style="color:red" *ngIf="contractForm.controls.total.hasError('min')"> Total > 0</p>
         </div>
       </div>
       <div class="button">
-        <input type="submit" value="Save">
+        <input type="submit" [disabled]="!contractForm.valid" value="Save">
       </div>
     </form>
   </div>

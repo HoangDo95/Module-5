@@ -22,12 +22,12 @@ export class FacilityCreateComponent implements OnInit {
     maxPeople: new FormControl('', [Validators.required]),
     rentType: new FormControl('', [Validators.required]),
     facilityType: new FormControl('', [Validators.required]),
-    standardRoom: new FormControl('', [Validators.required]),
-    other: new FormControl('', [Validators.required]),
-    pool: new FormControl('', [Validators.required]),
-    floors: new FormControl('', [Validators.required]),
-    free: new FormControl('', [Validators.required]),
-    img: new FormControl('', [Validators.required]),
+    standardRoom: new FormControl(''),
+    other: new FormControl(''),
+    pool: new FormControl('', [Validators.min(1)]),
+    floors: new FormControl('', [Validators.min(1)]),
+    free: new FormControl(''),
+    img: new FormControl('https://furamavietnam.com/wp-content/uploads/2018/03/Vietnam_Danang_Furama_Ocean-Deluxe-double-bed-F-370x239.jpg')
   });
 
   constructor(private facilityService: FacilityService,
@@ -36,8 +36,8 @@ export class FacilityCreateComponent implements OnInit {
               private router: Router) {
   }
 
-  facilityType: FacilityType[] = this.facilityTypeService.getAll();
-  rentType: RentType[] = this.rentTypeService.getAll();
+  facilityTypeList: FacilityType[] = this.facilityTypeService.getAll();
+  rentTypeList: RentType[] = this.rentTypeService.getAll();
 
   ngOnInit(): void {
   }

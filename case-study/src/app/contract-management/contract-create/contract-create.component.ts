@@ -16,10 +16,10 @@ export class ContractCreateComponent implements OnInit {
     id: new FormControl(Math.floor(Math.random() * 100)),
     starDay: new FormControl('', [Validators.required]),
     endDay: new FormControl('', [Validators.required]),
-    deposit: new FormControl('', [Validators.required, Validators.min(0)]),
+    deposit: new FormControl('', [Validators.required, Validators.min(1)]),
     customer: new FormControl('', [Validators.required]),
     facility: new FormControl('', [Validators.required]),
-    total: new FormControl('', [Validators.required, Validators.min(0)]),
+    total: new FormControl('', [Validators.required, Validators.min(1)]),
   });
 
   constructor(private contractService: ContractService,

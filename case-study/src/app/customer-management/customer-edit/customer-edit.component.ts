@@ -13,7 +13,6 @@ import {CustomerType} from '../../model/customer-type';
 export class CustomerEditComponent implements OnInit {
   customerForm: FormGroup;
   id: number;
-
   customerTypeList: CustomerType[] = this.customerTypeService.getAll();
 
   constructor(private customerService: CustomerService,
@@ -28,9 +27,9 @@ export class CustomerEditComponent implements OnInit {
         customerType: new FormControl(customer.customerType.name, [Validators.required]),
         name: new FormControl(customer.name, [Validators.required, Validators.pattern('^([A-Z\\p{L}]{1}[a-z\\p{L}]*)+(\\s([A-Z\\p{L}]{1}[a-z\\p{L}]*))*$')]),
         dayOfBirth: new FormControl(customer.dayOfBirth, [Validators.required]),
-        gender: new FormControl(customer.gender, [Validators.required, Validators.pattern('^(0?)(3[2-9]|5[6|8|9]|7[0|6-9]|8[0-6|8|9]|9[0-4|6-9])[0-9]{7}$')]),
+        gender: new FormControl(customer.gender, [Validators.required]),
         idCard: new FormControl(customer.idCard, [Validators.required, Validators.pattern('^[0-9]{9}$')]),
-        phone: new FormControl(customer.phone, [Validators.required]),
+        phone: new FormControl(customer.phone, [Validators.required, Validators.pattern('^(0?)(3[2-9]|5[6|8|9]|7[0|6-9]|8[0-6|8|9]|9[0-4|6-9])[0-9]{7}$')]),
         email: new FormControl(customer.email, [Validators.required, Validators.email]),
         address: new FormControl(customer.address, [Validators.required])
       });

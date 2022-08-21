@@ -99,7 +99,7 @@ export class FacilityService {
       img: 'https://furamavietnam.com/wp-content/uploads/2018/03/Vietnam_Danang_Furama_Ocean-Suite-Feature-370x239.jpg'
     },
   ];
-  facilityType: FacilityType[] = this.facilityTypeService.getAll();
+  facilityTypeList: FacilityType[] = this.facilityTypeService.getAll();
 
   constructor(private facilityTypeService: FacilityTypeService) {
   }
@@ -109,9 +109,10 @@ export class FacilityService {
   }
 
   saveFacility(facility) {
-    for (let i = 0; i < this.facilityType.length; i++) {
-      if (facility.facilityType === this.facilityType[i].name) {
-        facility.facilityType = this.facilityType[i];
+    // tslint:disable-next-line:prefer-for-of
+    for (let i = 0; i < this.facilityTypeList.length; i++) {
+      if (facility.facilityType === this.facilityTypeList[i].name) {
+        facility.facilityType = this.facilityTypeList[i];
       }
     }
     this.facilityList.push(facility);
@@ -122,6 +123,12 @@ export class FacilityService {
   }
 
   updateFacility(id: number, facility: Facility) {
+    // tslint:disable-next-line:prefer-for-of
+    for (let i = 0; i < this.facilityTypeList.length; i++) {
+      if (facility.facilityType === this.facilityTypeList[i].name) {
+        facility.facilityType = this.facilityTypeList[i];
+      }
+    }
     for (let i = 0; i < this.facilityList.length; i++) {
       if (this.facilityList[i].id === id) {
         this.facilityList[i] = facility;
