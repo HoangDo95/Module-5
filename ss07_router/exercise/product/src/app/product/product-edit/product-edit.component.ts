@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {ProductService} from '../../service/product.service';
 import {ActivatedRoute, ParamMap} from '@angular/router';
 import {FormControl, FormGroup} from '@angular/forms';
+import {Product} from '../../model/product';
 
 @Component({
   selector: 'app-product-edit',
@@ -29,11 +30,11 @@ export class ProductEditComponent implements OnInit {
   ngOnInit() {
   }
 
-  getProduct(id: number) {
+  getProduct(id: number): Product {
     return this.productService.findById(id);
   }
 
-  updateProduct(id: number) {
+  updateProduct(id: number): void {
     const product = this.productForm.value;
     this.productService.updateProduct(id, product);
     alert('Cập nhật thành công');

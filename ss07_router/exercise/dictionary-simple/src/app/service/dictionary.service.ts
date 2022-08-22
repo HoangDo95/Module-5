@@ -30,11 +30,11 @@ export class DictionaryService {
     });
   }
 
-  public getAll() {
+  public getAll(): IWord[] {
     return this.wordList;
   }
 
-  findByWord(word: string) {
+  findByWord(word: string): IWord {
     for (const w of this.wordList) {
       if (w.word === word) {
         return w;
