@@ -6,6 +6,7 @@ import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {RentType} from '../../model/rent-type';
 import {FacilityType} from '../../model/facility-type';
 import {Router} from '@angular/router';
+import {ToastrService} from 'ngx-toastr';
 
 @Component({
   selector: 'app-facility-create',
@@ -13,9 +14,9 @@ import {Router} from '@angular/router';
   styleUrls: ['./facility-create.component.css']
 })
 export class FacilityCreateComponent implements OnInit {
-  temp: string;
+  temp: number;
   facilityForm: FormGroup = new FormGroup({
-    id: new FormControl(Math.floor(Math.random() * 100)),
+    id: new FormControl(''),
     name: new FormControl('', [Validators.required]),
     area: new FormControl('', [Validators.required]),
     cost: new FormControl('', [Validators.required]),
@@ -33,24 +34,39 @@ export class FacilityCreateComponent implements OnInit {
   constructor(private facilityService: FacilityService,
               private facilityTypeService: FacilityTypeService,
               private rentTypeService: RentTypeService,
+              private toastrService: ToastrService,
               private router: Router) {
   }
 
-  facilityTypeList: FacilityType[] = this.facilityTypeService.getAll();
-  rentTypeList: RentType[] = this.rentTypeService.getAll();
+  facilityTypeList: FacilityType[];
+  rentTypeList: RentType[];
 
   ngOnInit(): void {
+    this.getAll();
   }
 
   submit() {
     const facility = this.facilityForm.value;
-    this.facilityService.saveFacility(facility);
-    this.facilityForm.reset();
-    alert('Create done');
-    this.router.navigate(['/facility-list']);
+    this.facilityTypeService.findById(facility.facilityType).subscribe(facilityType => {
+      facility.facilityType = {id: facilityType.id, name: facilityType.name};
+      this.facilityService.saveFacility(facility).subscribe(() => {
+        this.facilityForm.reset();
+        this.toastrService.success('Create done');
+        this.router.navigateByUrl('/facility/list');
+      }, e => console.log(e));
+    });
   }
 
-  changeFacility(even: string) {
+  getAll() {
+    this.facilityTypeService.getAll().subscribe(facilityTypeList => {
+      this.facilityTypeList = facilityTypeList;
+    });
+    this.rentTypeService.getAll().subscribe(rentTypeList => {
+      this.rentTypeList = rentTypeList;
+    });
+  }
+
+  changeFacility(even: number) {
     this.temp = even;
     console.log(this.temp);
   }

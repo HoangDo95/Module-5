@@ -1,6 +1,10 @@
 import {Component, OnInit} from '@angular/core';
 import {Facility} from '../../model/facility';
 import {FacilityService} from '../service/facility.service';
+import {FacilityType} from '../../model/facility-type';
+import {RentType} from '../../model/rent-type';
+import {FacilityTypeService} from '../service/facility-type.service';
+import {RentTypeService} from '../service/rent-type.service';
 
 @Component({
   selector: 'app-facility-list',
@@ -9,6 +13,8 @@ import {FacilityService} from '../service/facility.service';
 })
 export class FacilityListComponent implements OnInit {
   facilityList: Facility [] = [];
+  facilityTypeList: FacilityType [] = [];
+  rentTypeList: RentType [] = [];
   idDelete: number;
   id: number;
   name: string;
@@ -22,8 +28,11 @@ export class FacilityListComponent implements OnInit {
   pool: string;
   floors: string;
   free: string;
+  p = 0;
 
-  constructor(private facilityService: FacilityService) {
+  constructor(private facilityService: FacilityService,
+              private facilityTypeService: FacilityTypeService,
+              private rentTypeService: RentTypeService) {
   }
 
   ngOnInit() {
@@ -31,11 +40,20 @@ export class FacilityListComponent implements OnInit {
   }
 
   getAll() {
-    this.facilityList = this.facilityService.getAll();
+    this.facilityService.getAll().subscribe(facilityList => {
+      this.facilityList = facilityList;
+    });
+    this.facilityTypeService.getAll().subscribe(facilityTypeList => {
+      this.facilityTypeList = facilityTypeList;
+    });
+    this.rentTypeService.getAll().subscribe(rentTypeList => {
+      this.rentTypeList = rentTypeList;
+    });
   }
 
   showDelete(facility: Facility) {
     this.idDelete = facility.id;
+    this.name = facility.name;
   }
 
   showDetail(facility: Facility) {
@@ -55,7 +73,10 @@ export class FacilityListComponent implements OnInit {
 
   delete(idDelete: number) {
     console.log(idDelete);
-    this.facilityService.deleteFacility(idDelete);
-    this.ngOnInit();
+    this.facilityService.deleteFacility(idDelete).subscribe(() => {
+      this.ngOnInit();
+    }, error => {
+      console.log(error);
+    });
   }
 }

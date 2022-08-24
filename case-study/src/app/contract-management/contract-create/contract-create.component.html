@@ -7,7 +7,7 @@
           <span class="details">Facility</span>
           <select class="form-select" formControlName="facility" >
             <option value="" >-----Choose-----</option>
-            <option *ngFor="let item of facility" [ngValue]="item">{{item.name}}</option>
+            <option *ngFor="let item of facilityList" [ngValue]="item">{{item.name}}</option>
             <p style="color:red" *ngIf="contractForm.controls.facility.hasError('required') && contractForm.controls.facility.touched"> Is not blank</p>
           </select>
         </div>
@@ -15,7 +15,7 @@
           <span class="details">Customer</span>
           <select class="form-select" formControlName="customer" >
             <option value="" >-----Choose-----</option>
-            <option *ngFor="let item of customer" [ngValue]="item">{{item.name}}</option>
+            <option *ngFor="let item of customerList" [ngValue]="item">{{item.name}}</option>
             <p style="color:red" *ngIf="contractForm.controls.customer.hasError('required') && contractForm.controls.customer.touched"> Is not blank</p>
           </select>
         </div>

@@ -1,9 +1,10 @@
 import {Component, OnInit} from '@angular/core';
-import {FormControl, FormGroup, Validators} from '@angular/forms';
+import {AbstractControl, FormControl, FormGroup, Validators} from '@angular/forms';
 import {CustomerService} from '../service/customer.service';
 import {CustomerTypeService} from '../service/customer-type.service';
 import {CustomerType} from '../../model/customer-type';
-import {Route, Router, Routes} from '@angular/router';
+import {Router} from '@angular/router';
+import {ToastrService} from 'ngx-toastr';
 
 @Component({
   selector: 'app-customer-create',
@@ -11,12 +12,12 @@ import {Route, Router, Routes} from '@angular/router';
   styleUrls: ['./customer-create.component.css']
 })
 export class CustomerCreateComponent implements OnInit {
-  customerType: CustomerType[] = this.customerTypeService.getAll();
+  customerTypeList: CustomerType[];
   customerForm: FormGroup = new FormGroup({
-    id: new FormControl(Math.floor(Math.random() * 100)),
+    id: new FormControl(''),
     customerType: new FormControl('', [Validators.required]),
     name: new FormControl('', [Validators.required, Validators.pattern('^([A-Z\\p{L}]{1}[a-z\\p{L}]*)+(\\s([A-Z\\p{L}]{1}[a-z\\p{L}]*))*$')]),
-    dayOfBirth: new FormControl('', [Validators.required]),
+    dayOfBirth: new FormControl('', [Validators.required, this.ageValidate]),
     gender: new FormControl('', [Validators.required]),
     idCard: new FormControl('', [Validators.required, Validators.pattern('^[0-9]{9}$')]),
     phone: new FormControl('', [Validators.required, Validators.pattern('^([+84]|0?)(9[0-4|6-9])[0-9]{7}$')]),
@@ -25,18 +26,40 @@ export class CustomerCreateComponent implements OnInit {
   });
 
   constructor(private customerService: CustomerService,
-              private customerTypeService: CustomerTypeService, private router: Router) {
+              private customerTypeService: CustomerTypeService,
+              private router: Router,
+              private toastrService: ToastrService) {
   }
 
-  ngOnInit() {
+  ageValidate(dob: AbstractControl) {
+    const now = new Date();
+    const birthDay = new Date(dob.value);
+    const age = now.getFullYear() - birthDay.getFullYear();
+    if (age < 18) {
+      return {'ageError': true};
+    }
+    return null;
   }
 
-  submit() {
+  ngOnInit(): void {
+    this.getAll();
+  }
+
+  submit(): void {
     const customer = this.customerForm.value;
-    this.customerService.saveCustomer(customer);
-    this.customerForm.reset();
-    this.router.navigate(['/customer-list']);
-    alert('Create done');
+    this.customerTypeService.findById(customer.customerType).subscribe(customerType => {
+      customer.customerType = {id: customerType.id, name: customerType.name};
+      this.customerService.saveCustomer(customer).subscribe(() => {
+        this.toastrService.success('Create done');
+        this.router.navigateByUrl('/customer/list');
+        this.customerForm.reset();
+      }, e => console.log(e));
+    });
+  }
 
+  getAll() {
+    this.customerTypeService.getAll().subscribe(customerType => {
+      this.customerTypeList = customerType;
+    });
   }
 }

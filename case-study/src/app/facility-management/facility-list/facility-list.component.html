@@ -7,7 +7,7 @@
     <br>
     <div class="container">
       <div class="row">
-        <div class="col-sm-4" *ngFor="let item of facilityList">
+        <div class="col-sm-4" *ngFor="let item of facilityList | paginate: { itemsPerPage: 3, currentPage: p }">
           <div class="card" style="width: 100%;margin-bottom: 30px">
             <img
               [src]="item.img"
@@ -19,7 +19,7 @@
               </p>
               <div style="display: flex;justify-content: space-between">
                 <div>
-                  <a [routerLink]="['/facility-edit',item.id]" role="button" class="btn btn-outline-success">Edit</a>
+                  <a [routerLink]="['/facility/edit',item.id]" role="button" class="btn btn-outline-success">Edit</a>
                 </div>
                 <!-- Button trigger modal -->
                 <button type="button" class="btn btn-outline-secondary" data-bs-toggle="modal"
@@ -35,11 +35,15 @@
             </div>
           </div>
         </div>
-
+        <div style="text-align: center">
+          <pagination-controls (pageChange)="p = $event"></pagination-controls>
+        </div>
       </div>
     </div>
   </div>
 </div>
+
+
 <!-- Modal delete-->
 <div class="modal fade" id="delete" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog">
@@ -49,7 +53,7 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        Do you want delete ...{{idDelete}}
+        Do you want delete id: {{idDelete}} with name: {{name}}
 
       </div>
       <div class="modal-footer">

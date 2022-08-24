@@ -1,35 +1,38 @@
 import {Injectable} from '@angular/core';
 import {FacilityType} from '../../model/facility-type';
 import {element} from 'protractor';
+import {Observable} from 'rxjs';
+import {Customer} from '../../model/customer';
+import {HttpClient} from '@angular/common/http';
+import {Facility} from '../../model/facility';
 
 @Injectable({
   providedIn: 'root'
 })
 export class FacilityTypeService {
-  facilityTypes: FacilityType[] = [
-    {
-      id: 1,
-      name: 'Villa'
-    },
-    {
-      id: 2,
-      name: 'House'
-    },
-    {
-      id: 3,
-      name: 'Room'
-    }
-  ];
+  // facilityTypes: FacilityType[] = [
+  //   {
+  //     id: 1,
+  //     name: 'Villa'
+  //   },
+  //   {
+  //     id: 2,
+  //     name: 'House'
+  //   },
+  //   {
+  //     id: 3,
+  //     name: 'Room'
+  //   }
+  // ];
 
-  constructor() {
+  constructor(private http: HttpClient) {
   }
 
-  findById(name: string) {
-    // tslint:disable-next-line:no-shadowed-variable
-    return this.facilityTypes.find( element => element.name === name);
+  getAll(): Observable<FacilityType[]> {
+    return this.http.get<FacilityType[]>('http://localhost:3000/facilityType');
   }
 
-  getAll() {
-    return this.facilityTypes;
+  findById(id: number): Observable<Facility> {
+    return this.http.get<FacilityType>(`http://localhost:3000/facilityType/${id}`);
   }
 }

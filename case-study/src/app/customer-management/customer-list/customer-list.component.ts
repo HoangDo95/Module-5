@@ -13,9 +13,12 @@ export class CustomerListComponent implements OnInit {
   customerList: Customer[] = [];
   customerTypeList: CustomerType[] = [];
   idDelete: number;
+  name: string;
+  p = 0;
 
 
-  constructor(private customerService: CustomerService, private customerTypeService: CustomerTypeService) {
+  constructor(private customerService: CustomerService,
+              private customerTypeService: CustomerTypeService) {
   }
 
   ngOnInit() {
@@ -23,17 +26,25 @@ export class CustomerListComponent implements OnInit {
   }
 
   getAll() {
-    this.customerList = this.customerService.getAll();
-    this.customerTypeList = this.customerTypeService.getAll();
+    this.customerService.getAll().subscribe(customer => {
+      this.customerList = customer;
+    });
+    this.customerTypeService.getAll().subscribe(customerType => {
+      this.customerTypeList = customerType;
+    });
   }
 
   showDelete(customer: Customer) {
     this.idDelete = customer.id;
+    this.name = customer.name;
   }
 
   delete(idDelete: number) {
     console.log(idDelete);
-    this.customerService.deleteCustomer(idDelete);
-    this.ngOnInit();
+    this.customerService.deleteCustomer(idDelete).subscribe(() => {
+        this.ngOnInit();
+      }, e => {
+        console.log(e);
+      });
   }
 }

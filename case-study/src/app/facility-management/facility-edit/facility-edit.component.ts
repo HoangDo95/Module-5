@@ -6,6 +6,7 @@ import {ActivatedRoute, ParamMap, Router} from '@angular/router';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {FacilityType} from '../../model/facility-type';
 import {RentType} from '../../model/rent-type';
+import {ToastrService} from 'ngx-toastr';
 
 @Component({
   selector: 'app-facility-edit',
@@ -15,53 +16,67 @@ import {RentType} from '../../model/rent-type';
 export class FacilityEditComponent implements OnInit {
   facilityForm: FormGroup;
   id: number;
-  temp: string;
-
-  facilityTypeList: FacilityType [] = this.facilityTypeService.getAll();
-  rentTypeList: RentType [] = this.rentTypeService.getAll();
+  temp: number;
+  facilityTypeList: FacilityType [] = [];
+  rentTypeList: RentType [] = [];
 
   constructor(private facilityService: FacilityService,
               private facilityTypeService: FacilityTypeService,
               private rentTypeService: RentTypeService,
               private activatedRoute: ActivatedRoute,
+              private toastrService: ToastrService,
               private router: Router) {
     this.activatedRoute.paramMap.subscribe((paramMap: ParamMap) => {
       this.id = +paramMap.get('id');
-      const facility = this.findById(this.id);
-      console.log(facility);
-      this.facilityForm = new FormGroup({
-        id: new FormControl(facility.id),
-        name: new FormControl(facility.name, [Validators.required]),
-        area: new FormControl(facility.area, [Validators.required]),
-        cost: new FormControl(facility.cost, [Validators.required]),
-        maxPeople: new FormControl(facility.maxPeople, [Validators.required]),
-        rentType: new FormControl(facility.rentType.name, [Validators.required]),
-        facilityType: new FormControl(facility.facilityType.name, [Validators.required]),
-        standardRoom: new FormControl(facility.standardRoom),
-        other: new FormControl(facility.other),
-        pool: new FormControl(facility.pool),
-        floors: new FormControl(facility.floors),
-        free: new FormControl(facility.free),
-        img: new FormControl(facility.img),
+      this.facilityService.findById(this.id).subscribe(facility => {
+        this.facilityForm = new FormGroup({
+          id: new FormControl(facility.id),
+          name: new FormControl(facility.name, [Validators.required]),
+          area: new FormControl(facility.area, [Validators.required]),
+          cost: new FormControl(facility.cost, [Validators.required]),
+          maxPeople: new FormControl(facility.maxPeople, [Validators.required]),
+          rentType: new FormControl(facility.rentType.id, [Validators.required]),
+          facilityType: new FormControl(facility.facilityType.id, [Validators.required]),
+          standardRoom: new FormControl(facility.standardRoom),
+          other: new FormControl(facility.other),
+          pool: new FormControl(facility.pool),
+          floors: new FormControl(facility.floors),
+          free: new FormControl(facility.free),
+          img: new FormControl(facility.img),
+        });
       });
     });
   }
 
   ngOnInit(): void {
+    this.getAll();
   }
 
-  findById(id: number) {
-    return this.facilityService.findById(id);
+  getAll() {
+    this.facilityTypeService.getAll().subscribe(facilityTypeList => {
+      this.facilityTypeList = facilityTypeList;
+    });
+    this.rentTypeService.getAll().subscribe(rentTypeList => {
+      this.rentTypeList = rentTypeList;
+    });
   }
 
   updateFacility(id: number) {
     const facility = this.facilityForm.value;
-    this.facilityService.updateFacility(id, facility);
-    alert('Edit done');
-    this.router.navigate(['/facility-list']);
+    this.facilityTypeService.findById(facility.facilityType).subscribe( facilityType => {
+      facility.facilityType = {id: facilityType.id, name: facilityType.name};
+      this.rentTypeService.findById(facility.rentType).subscribe( rentType => {
+        facility.rentType = {id: rentType.id, name: rentType.name};
+        this.facilityService.updateFacility(id, facility).subscribe(() => {
+          console.log(facility);
+          this.toastrService.success('Edit done');
+          this.router.navigate(['/facility/list']);
+        });
+      });
+    });
   }
 
-  changeFacility(even: string) {
+  changeFacility(even: number) {
     this.temp = even;
     console.log(this.temp);
   }

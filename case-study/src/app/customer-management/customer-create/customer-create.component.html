@@ -11,7 +11,7 @@
           <span class="details">Customer Type</span>
           <select class="form-select" formControlName="customerType">
             <option value="" >-----Choose-----</option>
-            <option *ngFor="let item of customerType" [ngValue]="item">{{item.name}}</option>
+            <option *ngFor="let item of customerTypeList" [ngValue]="item.id">{{item.name}}</option>
             <p style="color:red" *ngIf="customerForm.controls.customerType.hasError('required') && customerForm.controls.customerType.touched"> Is not blank</p>
           </select>
         </div>
@@ -25,6 +25,7 @@
           <span class="details">Birth Day</span>
           <input type="date" formControlName="dayOfBirth" required>
           <p style="color:red" *ngIf="customerForm.controls.dayOfBirth.hasError('required') && customerForm.controls.dayOfBirth.touched"> Is not blank</p>
+          <p style="color:red" *ngIf="customerForm.controls.dayOfBirth.hasError('ageError')"> Age > 18</p>
         </div>
         <div class="input-box">
           <span class="details">Email</span>
@@ -34,13 +35,13 @@
         </div>
         <div class="input-box">
           <span class="details">Phone Number</span>
-          <input type="number" formControlName="phone" placeholder="Enter your number" >
+          <input type="text" formControlName="phone" placeholder="Enter your number" >
           <p style="color:red" *ngIf="customerForm.controls.phone.hasError('required') && customerForm.controls.phone.touched"> Is not blank</p>
           <p style="color:red" *ngIf="customerForm.controls.phone.hasError('pattern')"> Phone: 03|05|07|09xxxxxxxx </p>
         </div>
         <div class="input-box">
           <span class="details">Id Card</span>
-          <input type="number" formControlName="idCard" placeholder="Enter your id card" >
+          <input type="text" formControlName="idCard" placeholder="Enter your id card" >
           <p style="color:red" *ngIf="customerForm.controls.idCard.hasError('required') && customerForm.controls.idCard.touched"> Is not blank</p>
           <p style="color:red" *ngIf="customerForm.controls.idCard.hasError('minlength')"> Id Card: xxxxxxxxx (X is number 0 - 9) </p>
         </div>

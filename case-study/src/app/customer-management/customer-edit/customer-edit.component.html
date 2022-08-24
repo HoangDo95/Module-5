@@ -1,7 +1,7 @@
 <div class="container">
   <div class="title">Edit Customer</div>
   <div class="content">
-    <form [formGroup]="customerForm" (ngSubmit)="updateCustomer(id)">
+    <form [formGroup]="customerForm" (ngSubmit)="updateCustomer()">
       <div class="user-details">
         <!--        <div class="input-box">-->
         <!--          <span class="details">Id</span>-->
@@ -11,7 +11,7 @@
           <span class="details">Customer Type</span>
           <select class="form-select" formControlName="customerType">
             <option value="">-----Choose-----</option>
-            <option *ngFor="let item of customerTypeList" [ngValue]="item">{{item.name}}</option>
+            <option *ngFor="let item of customerTypeList" [ngValue]="item.id">{{item.name}}</option>
             <p style="color:red"
                *ngIf="customerForm.controls.customerType.hasError('required') && customerForm.controls.customerType.touched">
               Is not blank</p>

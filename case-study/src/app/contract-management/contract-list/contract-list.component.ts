@@ -1,8 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {Contract} from '../../model/contract';
 import {ContractService} from '../service/contract.service';
 import {CustomerService} from '../../customer-management/service/customer.service';
-import {FacilityService} from '../../facility-namagement/service/facility.service';
+import {FacilityService} from '../../facility-management/service/facility.service';
 import {Customer} from '../../model/customer';
 import {Facility} from '../../model/facility';
 
@@ -12,9 +12,10 @@ import {Facility} from '../../model/facility';
   styleUrls: ['./contract-list.component.css']
 })
 export class ContractListComponent implements OnInit {
-  contracts: Contract[] = [];
-  customers: Customer[] = [];
-  facilitys: Facility[] = [];
+  contractList: Contract[] = [];
+  customerList: Customer[] = [];
+  facilityList: Facility[] = [];
+  p = 0;
 
   constructor(private contractService: ContractService,
               private customerService: CustomerService,
@@ -24,9 +25,16 @@ export class ContractListComponent implements OnInit {
   ngOnInit() {
     this.getAll();
   }
+
   getAll() {
-    this.contracts = this.contractService.getAll();
-    this.customers = this.customerService.getAll();
-    this.facilitys = this.facilityService.getAll();
+    this.contractService.getAll().subscribe(contract => {
+      this.contractList = contract;
+    });
+    this.customerService.getAll().subscribe(customer => {
+      this.customerList = customer;
+    });
+    this.facilityService.getAll().subscribe(facility => {
+      this.facilityList = facility;
+    });
   }
 }
